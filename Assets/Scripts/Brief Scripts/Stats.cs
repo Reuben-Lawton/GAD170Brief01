@@ -86,9 +86,20 @@ public class Stats : MonoBehaviour
     /// </summary>
     public void GeneratePhysicalStatsStats()
     {
-        Debug.LogWarning("Generate Physical Stats has been called");
 
-        // Let's set up agility, intelligence and strength to some default Random values.
+        agility = Random.Range(1, 10);
+        intelligence = Random.Range(1, 10);
+        strength = Random.Range(1, 10);
+        {
+            Debug.LogWarning("Player stats have been generated. " + "Agility: " + agility + "Intelligience: " + intelligence + "Strenght: " + strength);
+        }
+        style = (int)agility * (int)agilityMultiplier;
+        luck = (int)(intelligence) * (int)(inteligenceMultiplier);
+        rhythm = (int)strength * (int)strengthMultiplier;
+
+
+        // Let's set up agility, intelligence and strength to some default Random values.  
+
 
         UpdateStatsUI(); // update our current UI for our character
     }
