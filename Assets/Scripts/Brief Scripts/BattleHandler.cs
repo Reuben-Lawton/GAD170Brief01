@@ -32,6 +32,20 @@ public class BattleHandler:MonoBehaviour
         {
             Debug.LogWarning(" Simulate battle called; but Player or NPC battle points is 0, most likely the logic has not be setup for this yet");
         }
+        else if (myPoints == opponentPoints)
+        {
+            Debug.Log("Somehow our points are the same,....hhmmm draw ?");
+        }
+        else if (myPoints < opponentPoints)
+        {
+
+            Debug.Log("Opponent has higher points than player. Opponents points currently at : " + opponentPoints + ". Player only has : " + myPoints);
+        }
+        else if (myPoints > opponentPoints)
+        {
+
+            Debug.Log("Player has higher points than opponent. Player points currently at : " + myPoints + ". Opponent only has: " + opponentPoints);
+        }
 
         // we probably want to compare our powerlevels...hope they aren't over 9000.
         // we need to return a normalised (decimal) value....how much do you remember about percentages?
@@ -54,36 +68,54 @@ public class BattleHandler:MonoBehaviour
         int playerPowerLevel = player.ReturnDancePowerLevel(); // player powerlevel
         int npcPowerLevel = npc.ReturnDancePowerLevel(); // npc powerlevel
 
-        if (playerPowerLevel <= 0 || npcPowerLevel <= 0)
+        /**if (playerPowerLevel <= 0 || npcPowerLevel <= 0)
         {
             Debug.LogWarning("Player or NPC battle points is 0, most likely the logic has not be setup for this yet");
-        }
-        else if (playerPowerLevel == npcPowerLevel)
-        {
+        }*/
+         
+    if (playerPowerLevel == npcPowerLevel)
+        
             SetWinningEffects(player, npc, 0); // setting the winning effects to a draw.
             player.AddXP(0); // player gets no xp
             npc.AddXP(0); // npc gets no xp either
-
-            Debug.Log("Draw yo, need to git gud");
-            /*
-        }
-        else if (playerPowerLevel > npcPowerLevel)
-        {
-            SetWinningEffects(player, npc, 0); // setting the winning effects to player greater than NPC.
-            player.AddXP(1); // player gets 1 XP
-            npc.AddXP(0); // npc gets no xp
-            Debug.Log("Player 1 power level is greater than the oponenet NPC");
-
             {
+                Debug.Log("Draw yo, need to git gud");
             }
-        else if (playerPowerLevel < npcPowerLevel)
-        {
-                SetWinningEffects(player 0, npc = 1); // setting the winning effects to Npc greater than player.
-                player.AddXP(0); // player gets 0 XP
-                npc.AddXP(1); // npc gets 1 xp
-                Debug.Log("NPC power level is greater than the player");
-        } */
-        }
+    if (playerPowerLevel > npcPowerLevel)
+            
+            SetWinningEffects(player, npc, 1); // setting the winning effects to player greater than NPC.
+            player.AddXP(Random.Range(1, 6)); // player gets a random mount of xp, max 5 xp
+        npc.AddXP(0); // npc gets no xp
+            {
+                Debug.Log("Player 1 power level is greater than the oponenet NPC");
+            }
+
+    if (playerPowerLevel < npcPowerLevel)
+            SetWinningEffects(player, npc, -1); // setting the winning effects to Npc greater than player.
+            player.AddXP(0); // player gets 0 XP
+            npc.AddXP(Random.Range(1,6)); // npc gets a random mount of xp, max 5 xp
+                {
+                    Debug.Log("NPC power level is greater than the player");
+                }
+            
+        
+        /*
+    }
+    else if (playerPowerLevel > npcPowerLevel)
+    {
+        SetWinningEffects(player, npc, 1); // setting the winning effects to player greater than NPC.
+        player.AddXP(0); // player gets 1 XP
+        npc.AddXP(0); // npc gets no xp
+        Debug.Log("Player 1 power level is greater than the oponenet NPC");
+     }
+    else if (playerPowerLevel < npcPowerLevel)
+    {
+        SetWinningEffects(player, npc, -1); // setting the winning effects to Npc greater than player.
+        player.AddXP(0); // player gets 0 XP
+        npc.AddXP(0); // npc gets 1 xp
+        Debug.Log("NPC power level is greater than the player");
+    } */
+
         // we probably want to compare our powerlevels...hope they aren't over 9000.
         // if someone wins...we probs wanna give some xp...but how much?
         // also if we want to show some winning effects 0 = draw, -1 = npc, 1 = player
