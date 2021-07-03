@@ -230,7 +230,6 @@ public class Stats : MonoBehaviour
 
         return (returnRandomDancingPower);
 
-
     }
 
     /// <summary>
@@ -248,7 +247,8 @@ public class Stats : MonoBehaviour
         }
         else if (xpGained >= 1 && xpGained <= 85)
         {
-            Debug.Log("XP gained is : " + xpGained);
+            currentXp = (currentXp + xpGained);
+            Debug.Log("XP gained is : " + xpGained + "so new Xp is currently at :" + currentXp);
         }
         //Debug.LogWarning("This character needs some xp to be given, the xpGained from the fight was: " + xpGained);
 
@@ -267,6 +267,9 @@ public class Stats : MonoBehaviour
     /// </summary>
     private void LevelUp()
     {
+        
+
+
         Debug.LogWarning("Level up has been called");
         // we probs want to increase our level....
         // As well as probably want to increase our threshold for when we should level up...based on our current new level
