@@ -248,7 +248,7 @@ public class Stats : MonoBehaviour
         else if (xpGained >= 1 && xpGained <= 85)
         {
             currentXp = (currentXp + xpGained);
-            Debug.Log("XP gained is : " + xpGained + "so new Xp is currently at :" + currentXp);
+            Debug.Log("XP gained is : " + xpGained + " so your current XP is  : " + currentXp);
         }
         //Debug.LogWarning("This character needs some xp to be given, the xpGained from the fight was: " + xpGained);
 
@@ -265,12 +265,84 @@ public class Stats : MonoBehaviour
     /// <summary>
     /// A function used to handle actions associated with levelling up.
     /// </summary>
+    
     private void LevelUp()
     {
-        
+        if (currentXp < xpThreshold)
+        {
+            Debug.Log("Current Xp is :" + currentXp);
+        }
+        else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
+        {
+            level = (level + 1);
+            Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
+            xpThreshold = (xpThreshold + 10) + 2;
+        }
+        else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
+        {
+            level = (level + 1);
+            Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");            xpThreshold = (xpThreshold * 2) + 2;
+            xpThreshold = (xpThreshold + 10) + 2;
+        }
+        else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
+        {
+            level = (level + 1);
+            Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
+            xpThreshold = (xpThreshold + 10) + 2;
+        }
+        else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
+        {
+            level = (level + 1);
+            Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
+            xpThreshold = (xpThreshold + 10) + 2;
+        }
+        else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
+        {
+            level = (level + 1);
+            Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
+            xpThreshold = (xpThreshold + 10) + 2;
+        }
+        else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
+        {
+            level = (level + 1);
+            Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
+            xpThreshold = (xpThreshold + 10) + 2;
+        }
+        else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
+        {
+            level = (level + 1);
+            Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
+            xpThreshold = (xpThreshold + 10) + 2;
+        }
+        else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
+        {
+            level = (level + 1);
+            Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
+            xpThreshold = (xpThreshold + 10) + 2;
+        }
+        else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
+        {
+            level = (level + 1);
+            Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
+            xpThreshold = (xpThreshold + 10) + 2;
+        }
+        else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
+        {
+            level = (level + 1);
+            Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
+            xpThreshold = (xpThreshold + 10) + 2;
+        }
+        else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
+        {
+            level = (level + 1);
+            Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
+            xpThreshold = (xpThreshold + 10) + 2;
+        }
+        else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
 
 
-        Debug.LogWarning("Level up has been called");
+
+            Debug.LogWarning("Level up has been called");
         // we probs want to increase our level....
         // As well as probably want to increase our threshold for when we should level up...based on our current new level
         // Last thing we probably want to do is increase our physical stats...if only we had a function to do that for us.       
