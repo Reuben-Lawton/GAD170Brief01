@@ -109,7 +109,7 @@ public class Stats : MonoBehaviour
         }
 
         {
-            Debug.LogWarning("Player stats have been generated. " + "Agility: " + agility + "Intelligience: " + intelligence + "Strenght: " + strength);
+            Debug.LogWarning("Player stats have been generated. " + "Agility: " + agility + "Intelligience: " + intelligence + "Strength: " + strength);
         }
 
 
@@ -124,11 +124,11 @@ public class Stats : MonoBehaviour
     {
         Debug.LogWarning("Generate Calculate Dancing Stats has been called");
 
-        style = (int)((agility) * agilityMultiplier);
+        style = (int)((float)(agility) * (float)agilityMultiplier);
         luck = ((strength) * strengthMultiplier);
         rhythm = ((intelligence) * intelligenceMultiplier);
         {
-            Debug.Log("Dance stats have been set, Style: " + (int)style + " Luck: " + luck + " Rhythm: " + rhythm);
+            Debug.Log("Dance stats have been set, Style: " + style + " Luck: " + luck + " Rhythm: " + rhythm);
         }
         /* float currentAgility = agility;
          float currentStrength = strength;
@@ -178,8 +178,8 @@ public class Stats : MonoBehaviour
 
     public void SetPercentageValue(float normalisedValue)
     {
-        int maxLevel = (maxStyle + maxLuck + maxRhythm);
-        int playerLevel = (style + luck + rhythm);
+        float maxLevel = (maxStyle + maxLuck + maxRhythm);
+        float playerLevel = (style + luck + rhythm);
         // float opponentLevel = (opponentStyle + opponentLuck + opponentRhythm);
 
         normalisedValue = (float)(playerLevel / maxLevel);
@@ -215,13 +215,13 @@ public class Stats : MonoBehaviour
         int MaxStyleMultiplier = 3, MaxLuckMultiplier = 3, MaxRhythmMultiplier = 2;
 
         int maxRandomStyle = (maxStyle * MaxStyleMultiplier), maxRandomLuck = (maxLuck * MaxLuckMultiplier), maxRandomRhythm = (maxRhythm * MaxRhythmMultiplier);
-        int maxRandomPower = (maxRandomStyle + maxRandomLuck + maxRandomRhythm);
+        float maxRandomPower = (maxRandomStyle + maxRandomLuck + maxRandomRhythm);
 
-        int danceRandomPower = currentRandomStyle + currentRandomLuck + currentRandomRhythm;
+        float danceRandomPower = (currentRandomStyle + currentRandomLuck + currentRandomRhythm);
 
-        int returnRandomDancingPower = ((danceRandomPower / maxRandomPower) * 100);
+        int returnRandomDancingPower = (int)((danceRandomPower / maxRandomPower) * 100);
 
-        string myDebugMessage = "Generating a random power level of : " + danceRandomPower + "comparing to Max Power: " + maxRandomPower + ". Generates a power level of: " + returnRandomDancingPower;
+        string myDebugMessage = "Generating a random power level of : " + danceRandomPower + "comparing to Max Power: " + maxRandomPower + ". Generates a power level of: " + (returnRandomDancingPower);
 
         Debug.Log(myDebugMessage);
 
