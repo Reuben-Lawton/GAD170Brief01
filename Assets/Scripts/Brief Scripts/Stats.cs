@@ -88,20 +88,21 @@ public class Stats : MonoBehaviour
     /// </summary>
     public void GeneratePhysicalStatsStats()
     {
-        // int Min = 1;
-        // int Max = 10;
-        int statpool = 25;
+        int Min = 1;
+        int agilityMin = 2;
+        int Max = 10;
+        // int statpool = 25;
         Debug.LogWarning("Generate Physical Stats has been called");
 
 
-        agility = Random.Range(2, statpool);
-        statpool -= agility;
+        agility = Random.Range(agilityMin, Max);
+        // statpool -= agility;
 
-        intelligence = Random.Range(1, statpool);
-        statpool -= intelligence;
+        intelligence = Random.Range(Min, Max);
+        // statpool -= intelligence;
 
-        strength = Random.Range(1, statpool);
-        statpool = 0;
+        strength = Random.Range(Min, Max);
+        // statpool = 0;
 
         {
             Debug.Log("Physical stats have been randomly generated. " + " Agility: " + agility + " Intelligience: " + intelligence + " Strength: " + strength);
@@ -178,13 +179,17 @@ public class Stats : MonoBehaviour
     public void SetPercentageValue(float normalisedValue)
     {
         int maxLevel = (maxStyle + maxLuck + maxRhythm);
-        float playerLevel = (style + luck + rhythm);
+        int playerLevel = (style + luck + rhythm);
         // float opponentLevel = (opponentStyle + opponentLuck + opponentRhythm);
-        
-        normalisedValue = (int)(playerLevel / maxLevel);
-        int PercentageValue = (int)normalisedValue * 100;
+
+        normalisedValue = (float)(playerLevel / maxLevel);
         {
-            Debug.Log("Max Level: " + maxLevel + "Player is currently at: " + playerLevel + ". Their percent chance to win is:  " + " % " + PercentageValue);
+            Debug.Log("Player normalised value between 0.0 and 1.0 is :" + normalisedValue);
+        }
+
+        perecentageChanceToWin = (int)(normalisedValue * 100);
+        {
+            Debug.Log("Max Level: " + maxLevel + "Player is currently at: " + playerLevel + ". Their percent chance to win is:  " + " % " + perecentageChanceToWin);
         }              
 
       
@@ -214,7 +219,7 @@ public class Stats : MonoBehaviour
 
         int danceRandomPower = currentRandomStyle + currentRandomLuck + currentRandomRhythm;
 
-        int returnRandomDancingPower = (((int)danceRandomPower / maxRandomPower) * 100);
+        int returnRandomDancingPower = ((danceRandomPower / maxRandomPower) * 100);
 
         string myDebugMessage = "Generating a random power level of : " + danceRandomPower + "comparing to Max Power: " + maxRandomPower + ". Generates a power level of: " + returnRandomDancingPower;
 
