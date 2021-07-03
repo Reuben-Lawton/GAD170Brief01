@@ -18,6 +18,7 @@ using UnityEngine.UI;
 /// </summary>
 /// 
 
+
 public class Stats : MonoBehaviour
 {
     /// <summary>
@@ -236,16 +237,30 @@ public class Stats : MonoBehaviour
     /// A function called when the battle is completed and some xp is to be awarded.
     /// The amount of xp gained is coming into this function
     /// </summary>
+
+    public BattleHandler Battle;
     public void AddXP(int xpGained)
+        
     {
-        Debug.LogWarning("This character needs some xp to be given, the xpGained from the fight was: " + xpGained);
+        if(xpGained == 0)
+        {
+            Debug.Log("No XP achieved, try harder!");
+        }
+        else if (xpGained >= 1 && xpGained <= 85)
+        {
+            Debug.Log("XP gained is : " + xpGained);
+        }
+        //Debug.LogWarning("This character needs some xp to be given, the xpGained from the fight was: " + xpGained);
+
         // we probably want to do something with the xpGained.
 
+
         //We probably want to display the xp we just gained, by default it is 0
-        uIManager.ShowPlayerXPUI(0);
+        uIManager.ShowPlayerXPUI(xpGained);
 
         // We probably also want to check to see if the player can level up and if so do something....what should we be checking?
     }
+    
 
     /// <summary>
     /// A function used to handle actions associated with levelling up.

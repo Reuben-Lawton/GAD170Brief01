@@ -51,7 +51,7 @@ public class BattleHandler:MonoBehaviour
         // we need to return a normalised (decimal) value....how much do you remember about percentages?
         // don't forget that we are returning a float...but diving 2 ints...what happens?
 
-        Debug.LogWarning("Simulate battle called, but the logic hasn't been set up yet, so defaulting to 0");
+        //Debug.LogWarning("Simulate battle called, but the logic hasn't been set up yet, so defaulting to 0");
         return 0;
     }
 
@@ -84,21 +84,20 @@ public class BattleHandler:MonoBehaviour
     if (playerPowerLevel > npcPowerLevel)
             
             SetWinningEffects(player, npc, 1); // setting the winning effects to player greater than NPC.
-            player.AddXP(Random.Range(1, 6)); // player gets a random mount of xp, max 5 xp
-        npc.AddXP(0); // npc gets no xp
+            player.AddXP((Random.Range(1, 3)) * (playerPowerLevel - npcPowerLevel)); // player gets an amount of xp, based from the difference of power then multiplied by a random amount
+            npc.AddXP(0); // npc gets no xp
             {
-                Debug.Log("Player 1 power level is greater than the oponenet NPC");
+                Debug.Log("Player 1 power level is greater than the oponenet NPC and has been given :" + " XP");
             }
 
     if (playerPowerLevel < npcPowerLevel)
             SetWinningEffects(player, npc, -1); // setting the winning effects to Npc greater than player.
             player.AddXP(0); // player gets 0 XP
-            npc.AddXP(Random.Range(1,6)); // npc gets a random mount of xp, max 5 xp
-                {
-                    Debug.Log("NPC power level is greater than the player");
-                }
-            
-        
+            npc.AddXP((Random.Range(1, 3)) * (npcPowerLevel - playerPowerLevel)); // npc gets an amount of xp, based from the difference of power then multiplied by a random amount
+            {
+                Debug.Log("NPC power level is greater than the player and has been given :" + " XP");
+            }
+                    
         /*
     }
     else if (playerPowerLevel > npcPowerLevel)
