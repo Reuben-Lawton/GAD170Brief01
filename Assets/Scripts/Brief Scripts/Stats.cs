@@ -36,23 +36,23 @@ public class Stats : MonoBehaviour
     /// <summary>
     /// Our variables used to determine our fighting power.
     /// </summary>
-    public int style;
-    public int luck; 
-    public int rhythm;
+    public float style;
+    public float luck; 
+    public float rhythm;
 
     /// <summary>
     /// Our physical stats that determine our dancing stats.
     /// </summary>
-    public int agility;
-    public int intelligence;
-    public int strength;
+    public float agility;
+    public float intelligence;
+    public float strength;
 
     /// <summary>
     /// Used to determine the conversion of 1 physical stat, to 1 dancing stat.
     /// </summary>
     public float agilityMultiplier = 0.5f;
     public float strengthMultiplier = 1f;
-    public float inteligenceMultiplier = 2f;
+    public float intelligenceMultiplier = 2f;
 
     /// <summary>
     /// A float used to display what the chance of winning the current fight is.
@@ -86,8 +86,38 @@ public class Stats : MonoBehaviour
     /// </summary>
     public void GeneratePhysicalStatsStats()
     {
+        // int Min = 1;
+        // int Max = 10;
+        float statpool = 25;
         Debug.LogWarning("Generate Physical Stats has been called");
 
+
+        agility = Random.Range(1, statpool);
+        statpool -= agility;
+
+        intelligence = Random.Range(1, statpool);
+        statpool -= intelligence;
+
+        strength = Random.Range(1, statpool);
+        statpool = 0;
+        {
+            Debug.Log("Physical stats have been randomly generated. " + " Agility: " + agility + " Intelligience: " + intelligence + " Strength: " + strength);
+        }
+        
+       
+
+
+        /*
+        {
+            Debug.Log("Agility is set randomly at : " + agility);
+        }
+        {
+            Debug.Log("Intelligience is set randomly at : " + intelligence);
+        }
+        {
+            Debug.Log("Strength is set randomly at : " + strength);
+        }
+        */
         // Let's set up agility, intelligence and strength to some default Random values.
 
         UpdateStatsUI(); // update our current UI for our character
@@ -100,6 +130,40 @@ public class Stats : MonoBehaviour
     public void CalculateDancingStats()
     {
         Debug.LogWarning("Generate Calculate Dancing Stats has been called");
+
+        style = (int)((float)(agility) * (float)agilityMultiplier);
+        luck = (int)((strength) * strengthMultiplier);
+        rhythm = (int)((intelligence) * intelligenceMultiplier);
+        {
+            Debug.Log("Dance stats have been set, Style: " + (int)style + " Luck: " + luck + " Rhythm: " + rhythm);
+        }
+        /* float currentAgility = agility;
+         float currentStrength = strength;
+         float currentIntelligience = intelligence;
+         float currentStyle = style;
+         float currentLuck = luck;
+         float currentRhythm = rhythm;
+        */
+        // style = agility * agilityMultiplier;
+        //luck = strength * strengthMultiplier;
+        // rhythm = intelligience * intelligenceMultiplier;
+
+    
+/*
+        {
+            Debug.Log("Style has been set using: " + " agility of " + currentAgility + "multiplied by " + agilityMultiplier + " . Giving a Style value of " + (currentAgility * agilityMultiplier));
+        }
+
+        {
+            Debug.Log("Luck has been set using: " + " strength of " + currentStrength + "multiplied by " + strengthMultiplier + " . Giving a Luck value of " + (currentStrength * strengthMultiplier));
+        }
+
+        {
+            Debug.Log("Rhythm has been set using: " + " intelligience of " + currentIntelligience + "multiplied by " + intelligenceMultiplier + " . Giving a Rhythm value of " + (agility * agilityMultiplier));
+        }*/
+
+
+
         // what we want I want is for you to take our physical stats and translate them into our dancing stats,
         // based on the multiplier of that stat as follows:
         // our Style should be based on our Agility.
@@ -116,9 +180,22 @@ public class Stats : MonoBehaviour
     /// <param name="normalisedValue"></param>
     public void SetPercentageValue(float normalisedValue)
     {
+        int maxStyle = 5;
+        int maxLuck = 10;
+        int maxRhythm = 20;
+        int maxLevel = (maxStyle + maxLuck + maxRhythm);
+        float playerLevel = (style + luck + rhythm);
+       // float opponentLevel = (opponentStyle + opponentLuck + opponentRhythm);
+        {
+            normalisedValue = (playerLevel / maxLevel);
+            Debug.Log("Max Level: " + maxLevel + "Player is currently at: " + playerLevel);
+
+        }
+
+
         // Essentially we want to set our percentage to win, to be a percentage using our normalised value (decimal value of a fraction)
         // How can we convert out normalised value into a whole number?
-        
+
         Debug.LogWarning("SetPercentageValue has been called we probably want to convert our normalised value to a percentage");
         UpdateStatsUI(); // update our current UI for our character
     }
