@@ -81,23 +81,62 @@ public class BattleHandler:MonoBehaviour
             {
                 Debug.Log("Draw yo, need to git gud");
             }
-    if (playerPowerLevel > npcPowerLevel)
-            
+        if (playerPowerLevel > npcPowerLevel)
+        {
             SetWinningEffects(player, npc, 1); // setting the winning effects to player greater than NPC.
-            player.AddXP((Random.Range(1, 3)) * (playerPowerLevel - npcPowerLevel)); // player gets an amount of xp, based from the difference of power then multiplied by a random amount
             npc.AddXP(0); // npc gets no xp
+
+            if ((playerPowerLevel - npcPowerLevel) <= 5)
             {
-                Debug.Log("Player 1 power level is greater than the oponenet NPC and has been given :" + " XP");
+                player.AddXP(5);
+                Debug.Log("Player power level is 5 or less, more then opponent, awarding 5XP");
             }
+            else if ((playerPowerLevel - npcPowerLevel) > 5 && (playerPowerLevel - npcPowerLevel) <= 10)
+            {
+                player.AddXP(10);
+                Debug.Log("Player power level is greater then 5 and less then or equal to 10, more then opponent, awarding 10 XP.");
+            }
+            else if ((playerPowerLevel - npcPowerLevel) > 10 && (playerPowerLevel - npcPowerLevel) <= 20)
+            {
+                player.AddXP(15);
+                Debug.Log("Player power level is greater then 10 and less then or equal to 20, more then opponent, awarding 15 XP.");
+            }
+            else if ((playerPowerLevel - npcPowerLevel) > 20 && (playerPowerLevel - npcPowerLevel) <= 84)
+            {
+                player.AddXP(20);
+                Debug.Log("Player power level is greater then 20 and less then or equal to 84, more then opponent, awarding 20 XP.");
+            }
+        }
+        
 
     if (playerPowerLevel < npcPowerLevel)
-            SetWinningEffects(player, npc, -1); // setting the winning effects to Npc greater than player.
-            player.AddXP(0); // player gets 0 XP
-            npc.AddXP((Random.Range(1, 3)) * (npcPowerLevel - playerPowerLevel)); // npc gets an amount of xp, based from the difference of power then multiplied by a random amount
+        {
+            SetWinningEffects(player, npc, -1); // setting the winning effects to player greater than NPC.
+            player.AddXP(0); // npc gets no xp
+
+            if ((npcPowerLevel - playerPowerLevel) <= 5)
             {
-                Debug.Log("NPC power level is greater than the player and has been given :" + " XP");
+                npc.AddXP(5);
+                Debug.Log("Player power level is 5 or less, more then opponent, awarding 5XP");
             }
-                    
+            else if ((npcPowerLevel - playerPowerLevel) > 5 && (npcPowerLevel - playerPowerLevel) <= 10)
+            {
+                npc.AddXP(10);
+                Debug.Log("Player power level is greater then 5 and less then or equal to 10, more then opponent, awarding 10 XP.");
+            }
+            else if ((npcPowerLevel - playerPowerLevel) > 10 && (npcPowerLevel - playerPowerLevel) <= 20)
+            {
+                npc.AddXP(15);
+                Debug.Log("Player power level is greater then 10 and less then or equal to 20, more then opponent, awarding 15 XP.");
+
+            }
+            else if ((npcPowerLevel - playerPowerLevel) > 20 && (npcPowerLevel - playerPowerLevel) <= 84)
+            {
+                player.AddXP(20);
+                Debug.Log("Player power level is greater then 20 and less then or equal to 84, more then opponent, awarding 20 XP.");
+            }
+        }
+
         /*
     }
     else if (playerPowerLevel > npcPowerLevel)
