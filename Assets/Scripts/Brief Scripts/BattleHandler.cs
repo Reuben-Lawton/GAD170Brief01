@@ -26,7 +26,7 @@ public class BattleHandler:MonoBehaviour
     {
         int myPoints = MyStats.ReturnDancePowerLevel(); // our current powerlevel
         int opponentPoints = Opponent.ReturnDancePowerLevel(); // our opponents current power level
-
+        float newNormalisedValue = 0.0f;
 
         if (myPoints <= 0 || opponentPoints <= 0)
         {
@@ -38,13 +38,13 @@ public class BattleHandler:MonoBehaviour
         }
         else if (myPoints < opponentPoints)
         {
-
-            Debug.Log("Opponent has higher points than player. Opponents points currently at : " + opponentPoints + ". Player only has : " + myPoints);
+            newNormalisedValue = (float)(myPoints / opponentPoints);
+            Debug.Log("Opponent has higher points than player. Opponents points currently at : " + opponentPoints + ". Player only has : " + myPoints + " and a normalised value of : " + newNormalisedValue);
         }
         else if (myPoints > opponentPoints)
         {
-
-            Debug.Log("Player has higher points than opponent. Player points currently at : " + myPoints + ". Opponent only has: " + opponentPoints);
+            newNormalisedValue = (float)(opponentPoints/myPoints);
+            Debug.Log("Player has higher points than opponent. Player points currently at : " + myPoints + ". Opponent only has: " + opponentPoints + " and a normalised value of : " + newNormalisedValue);
         }
 
         // we probably want to compare our powerlevels...hope they aren't over 9000.
@@ -52,7 +52,7 @@ public class BattleHandler:MonoBehaviour
         // don't forget that we are returning a float...but diving 2 ints...what happens?
 
         //Debug.LogWarning("Simulate battle called, but the logic hasn't been set up yet, so defaulting to 0");
-        return 0;
+        return newNormalisedValue;
     }
 
 
