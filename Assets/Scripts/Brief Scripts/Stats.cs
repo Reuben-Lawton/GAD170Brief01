@@ -86,6 +86,7 @@ public class Stats : MonoBehaviour
     /// </summary>
     public void GeneratePhysicalStatsStats()
     {
+<<<<<<< HEAD
         // int Min = 1;
         // int Max = 10;
         float statpool = 25;
@@ -119,6 +120,22 @@ public class Stats : MonoBehaviour
         }
         */
         // Let's set up agility, intelligence and strength to some default Random values.
+=======
+
+        agility = Random.Range(1, 10);
+        intelligence = Random.Range(1, 10);
+        strength = Random.Range(1, 10);
+        {
+            Debug.LogWarning("Player stats have been generated. " + "Agility: " + agility + "Intelligience: " + intelligence + "Strenght: " + strength);
+        }
+        style = (int)agility * (int)agilityMultiplier;
+        luck = (int)(intelligence) * (int)(inteligenceMultiplier);
+        rhythm = (int)strength * (int)strengthMultiplier;
+
+
+        // Let's set up agility, intelligence and strength to some default Random values.  
+
+>>>>>>> 5a4ead7130b7b2114c33d2f60518cb1fd8ed5ec3
 
         UpdateStatsUI(); // update our current UI for our character
     }
