@@ -16,6 +16,8 @@ using UnityEngine.UI;
 ///  DistributePhysicalStatsOnLevelUp increase each of our physical stats by a value, and recalculate our dancing stats.
 /// 
 /// </summary>
+/// 
+
 public class Stats : MonoBehaviour
 {
     /// <summary>
@@ -36,28 +38,28 @@ public class Stats : MonoBehaviour
     /// <summary>
     /// Our variables used to determine our fighting power.
     /// </summary>
-    public float style;
-    public float luck; 
-    public float rhythm;
+    public int style;
+    public int luck; 
+    public int rhythm;
 
     /// <summary>
     /// Our physical stats that determine our dancing stats.
     /// </summary>
-    public float agility;
-    public float intelligence;
-    public float strength;
+    public int agility;
+    public int intelligence;
+    public int strength;
 
     /// <summary>
     /// Used to determine the conversion of 1 physical stat, to 1 dancing stat.
     /// </summary>
     public float agilityMultiplier = 0.5f;
-    public float strengthMultiplier = 1f;
-    public float intelligenceMultiplier = 2f;
+    public int strengthMultiplier = 1;
+    public int intelligenceMultiplier = 2;
 
     /// <summary>
     /// A float used to display what the chance of winning the current fight is.
     /// </summary>
-    public float perecentageChanceToWin;
+    public int perecentageChanceToWin;
 
     #region character references, no mods required
     [HideInInspector]
@@ -88,11 +90,11 @@ public class Stats : MonoBehaviour
     {
         // int Min = 1;
         // int Max = 10;
-        float statpool = 25;
+        int statpool = 25;
         Debug.LogWarning("Generate Physical Stats has been called");
 
 
-        agility = Random.Range(1, statpool);
+        agility = Random.Range(2, statpool);
         statpool -= agility;
 
         intelligence = Random.Range(1, statpool);
@@ -121,9 +123,9 @@ public class Stats : MonoBehaviour
     {
         Debug.LogWarning("Generate Calculate Dancing Stats has been called");
 
-        style = (int)((float)(agility) * (float)agilityMultiplier);
-        luck = (int)((strength) * strengthMultiplier);
-        rhythm = (int)((intelligence) * intelligenceMultiplier);
+        style = (int)((agility) * agilityMultiplier);
+        luck = ((strength) * strengthMultiplier);
+        rhythm = ((intelligence) * intelligenceMultiplier);
         {
             Debug.Log("Dance stats have been set, Style: " + (int)style + " Luck: " + luck + " Rhythm: " + rhythm);
         }
@@ -204,15 +206,13 @@ public class Stats : MonoBehaviour
         // to ensure that there is not always a draw, by default it just returns 0. 
         // If you right click this function and find all references you can see where it is called.
         // Let's also throw in a little randomness in here, so it's not a garunteed win
-        float currentRandomStyle = (style * (Random.Range(1, 3)));
-        float currentRandomLuck = (luck * (Random.Range(1, 3)));
-        float currentRandomRhythm = (rhythm * (Random.Range(1, 2)));
+        int currentRandomStyle = (style * (Random.Range(1, 3))), currentRandomLuck = (luck * (Random.Range(1, 3))), currentRandomRhythm = (rhythm * (Random.Range(1, 2)));
         int MaxStyleMultiplier = 3, MaxLuckMultiplier = 3, MaxRhythmMultiplier = 2;
 
         int maxRandomStyle = (maxStyle * MaxStyleMultiplier), maxRandomLuck = (maxLuck * MaxLuckMultiplier), maxRandomRhythm = (maxRhythm * MaxRhythmMultiplier);
         int maxRandomPower = (maxRandomStyle + maxRandomLuck + maxRandomRhythm);
 
-        float danceRandomPower = currentRandomStyle + currentRandomLuck + currentRandomRhythm;
+        int danceRandomPower = currentRandomStyle + currentRandomLuck + currentRandomRhythm;
 
         int returnRandomDancingPower = (((int)danceRandomPower / maxRandomPower) * 100);
 
@@ -222,7 +222,7 @@ public class Stats : MonoBehaviour
 
         Debug.LogWarning("ReturnDancePowerLevel has been called, generated a random power level to use for battle points based on our stats");
 
-        return returnRandomDancingPower;
+        return (returnRandomDancingPower);
 
 
     }
