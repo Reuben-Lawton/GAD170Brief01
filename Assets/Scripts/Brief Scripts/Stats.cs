@@ -271,14 +271,10 @@ public class Stats : MonoBehaviour
     /// <summary>
     /// A function used to handle actions associated with levelling up.
     /// </summary>
-
+    
     public void LevelUp()
-    {
-        if (currentXp < xpThreshold)
-        {
-            Debug.Log("Current Xp is :" + currentXp);
-        }
-        else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
+    {        
+        if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
         {
             level = (level + 1);
             Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
