@@ -86,7 +86,6 @@ public class Stats : MonoBehaviour
     /// </summary>
     public void GeneratePhysicalStatsStats()
     {
-<<<<<<< HEAD
         // int Min = 1;
         // int Max = 10;
         float statpool = 25;
@@ -101,41 +100,15 @@ public class Stats : MonoBehaviour
 
         strength = Random.Range(1, statpool);
         statpool = 0;
+
         {
             Debug.Log("Physical stats have been randomly generated. " + " Agility: " + agility + " Intelligience: " + intelligence + " Strength: " + strength);
         }
-        
-       
 
-
-        /*
-        {
-            Debug.Log("Agility is set randomly at : " + agility);
-        }
-        {
-            Debug.Log("Intelligience is set randomly at : " + intelligence);
-        }
-        {
-            Debug.Log("Strength is set randomly at : " + strength);
-        }
-        */
-        // Let's set up agility, intelligence and strength to some default Random values.
-=======
-
-        agility = Random.Range(1, 10);
-        intelligence = Random.Range(1, 10);
-        strength = Random.Range(1, 10);
         {
             Debug.LogWarning("Player stats have been generated. " + "Agility: " + agility + "Intelligience: " + intelligence + "Strenght: " + strength);
         }
-        style = (int)agility * (int)agilityMultiplier;
-        luck = (int)(intelligence) * (int)(inteligenceMultiplier);
-        rhythm = (int)strength * (int)strengthMultiplier;
 
-
-        // Let's set up agility, intelligence and strength to some default Random values.  
-
->>>>>>> 5a4ead7130b7b2114c33d2f60518cb1fd8ed5ec3
 
         UpdateStatsUI(); // update our current UI for our character
     }
@@ -195,26 +168,30 @@ public class Stats : MonoBehaviour
     /// This is takes in a normalised value i.e. 0.0f - 1.0f, and is used to display our % chance to win.
     /// </summary>
     /// <param name="normalisedValue"></param>
+    /// 
+    int maxStyle = 5;
+    int maxLuck = 10;
+    int maxRhythm = 20;
+
     public void SetPercentageValue(float normalisedValue)
     {
-        int maxStyle = 5;
-        int maxLuck = 10;
-        int maxRhythm = 20;
         int maxLevel = (maxStyle + maxLuck + maxRhythm);
         float playerLevel = (style + luck + rhythm);
-       // float opponentLevel = (opponentStyle + opponentLuck + opponentRhythm);
+        // float opponentLevel = (opponentStyle + opponentLuck + opponentRhythm);
+        
+        normalisedValue = (int)(playerLevel / maxLevel);
+        int PercentageValue = (int)normalisedValue * 100;
         {
-            normalisedValue = (playerLevel / maxLevel);
-            Debug.Log("Max Level: " + maxLevel + "Player is currently at: " + playerLevel);
+            Debug.Log("Max Level: " + maxLevel + "Player is currently at: " + playerLevel + ". Their percent chance to win is:  " + " % " + PercentageValue);
+        }              
 
-        }
-
-
+      
         // Essentially we want to set our percentage to win, to be a percentage using our normalised value (decimal value of a fraction)
         // How can we convert out normalised value into a whole number?
 
         Debug.LogWarning("SetPercentageValue has been called we probably want to convert our normalised value to a percentage");
         UpdateStatsUI(); // update our current UI for our character
+
     }
 
     /// <summary>
@@ -227,8 +204,27 @@ public class Stats : MonoBehaviour
         // to ensure that there is not always a draw, by default it just returns 0. 
         // If you right click this function and find all references you can see where it is called.
         // Let's also throw in a little randomness in here, so it's not a garunteed win
-        Debug.LogWarning("ReturnBattlePoints has been called we probably want to create some battle points based on our stats");
-        return 0;
+        float currentRandomStyle = (style * (Random.Range(1, 3)));
+        float currentRandomLuck = (luck * (Random.Range(1, 3)));
+        float currentRandomRhythm = (rhythm * (Random.Range(1, 2)));
+        int MaxStyleMultiplier = 3, MaxLuckMultiplier = 3, MaxRhythmMultiplier = 2;
+
+        int maxRandomStyle = (maxStyle * MaxStyleMultiplier), maxRandomLuck = (maxLuck * MaxLuckMultiplier), maxRandomRhythm = (maxRhythm * MaxRhythmMultiplier);
+        int maxRandomPower = (maxRandomStyle + maxRandomLuck + maxRandomRhythm);
+
+        float danceRandomPower = currentRandomStyle + currentRandomLuck + currentRandomRhythm;
+
+        int returnRandomDancingPower = (((int)danceRandomPower / maxRandomPower) * 100);
+
+        string myDebugMessage = "Generating a random power level of : " + danceRandomPower + "comparing to Max Power: " + maxRandomPower + ". Generates a power level of: " + returnRandomDancingPower;
+
+        Debug.Log(myDebugMessage);
+
+        Debug.LogWarning("ReturnDancePowerLevel has been called, generated a random power level to use for battle points based on our stats");
+
+        return returnRandomDancingPower;
+
+
     }
 
     /// <summary>
