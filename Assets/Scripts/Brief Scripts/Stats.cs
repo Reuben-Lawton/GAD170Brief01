@@ -35,6 +35,11 @@ public class Stats : MonoBehaviour
     /// The amount of xp required to level up.
     /// </summary>
     public int xpThreshold = 10;
+
+    /// <summary>
+    /// Amount of XP to distribute to stats
+    /// </summary>
+    public int xpToDistribute = 0;
     
     /// <summary>
     /// Our variables used to determine our fighting power.
@@ -247,6 +252,7 @@ public class Stats : MonoBehaviour
         }
         else if (xpGained >= 1 && xpGained <= 85)
         {
+            
             currentXp = (currentXp + xpGained);
             Debug.Log("XP gained is : " + xpGained + " so your current XP is  : " + currentXp);
         }
@@ -254,7 +260,7 @@ public class Stats : MonoBehaviour
 
         // we probably want to do something with the xpGained.
 
-
+        xpToDistribute = xpGained;
         //We probably want to display the xp we just gained, by default it is 0
         uIManager.ShowPlayerXPUI(xpGained);
 
@@ -266,81 +272,20 @@ public class Stats : MonoBehaviour
     /// A function used to handle actions associated with levelling up.
     /// </summary>
     
-    private void LevelUp()
+    private void LevelUp(int level)
     {
         if (currentXp < xpThreshold)
         {
             Debug.Log("Current Xp is :" + currentXp);
         }
-        else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
+        while (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
         {
             level = (level + 1);
             Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
             xpThreshold = (xpThreshold + 10) + 2;
         }
-        else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
-        {
-            level = (level + 1);
-            Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");            xpThreshold = (xpThreshold * 2) + 2;
-            xpThreshold = (xpThreshold + 10) + 2;
-        }
-        else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
-        {
-            level = (level + 1);
-            Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
-            xpThreshold = (xpThreshold + 10) + 2;
-        }
-        else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
-        {
-            level = (level + 1);
-            Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
-            xpThreshold = (xpThreshold + 10) + 2;
-        }
-        else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
-        {
-            level = (level + 1);
-            Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
-            xpThreshold = (xpThreshold + 10) + 2;
-        }
-        else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
-        {
-            level = (level + 1);
-            Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
-            xpThreshold = (xpThreshold + 10) + 2;
-        }
-        else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
-        {
-            level = (level + 1);
-            Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
-            xpThreshold = (xpThreshold + 10) + 2;
-        }
-        else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
-        {
-            level = (level + 1);
-            Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
-            xpThreshold = (xpThreshold + 10) + 2;
-        }
-        else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
-        {
-            level = (level + 1);
-            Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
-            xpThreshold = (xpThreshold + 10) + 2;
-        }
-        else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
-        {
-            level = (level + 1);
-            Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
-            xpThreshold = (xpThreshold + 10) + 2;
-        }
-        else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
-        {
-            level = (level + 1);
-            Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
-            xpThreshold = (xpThreshold + 10) + 2;
-        }
-        else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
-
-
+       
+        
 
             Debug.LogWarning("Level up has been called");
         // we probs want to increase our level....
@@ -354,7 +299,27 @@ public class Stats : MonoBehaviour
     /// A function used to assign a random amount of points ot each of our skills.
     /// </summary>
     public void DistributePhysicalStatsOnLevelUp(int PointsPool)
+
     {
+        PointsPool = xpToDistribute;
+        {
+            Debug.Log("Points Pool : " + PointsPool + " so that is the same as XptoDistribute:" + xpToDistribute);
+        }
+        if(PointsPool == 0)
+        {
+            Debug.Log("Points Pool has got no points... hmm what now ?");
+        }
+        else if(PointsPool >= 1)
+        {
+            style += (Random.Range(1, PointsPool));
+            PointsPool -= style;
+            luck += (Random.Range(1, PointsPool));
+            PointsPool -= luck;
+            rhythm += (Random.Range(1, PointsPool));
+            PointsPool = 0;
+            Debug.Log("Xp gained from battle has been distributed to player stats");
+        }
+
         Debug.LogWarning("DistributePhysicalStatsOnLevelUp has been called " + PointsPool);
         // let's share these points somewhat evenly or based on some forumal to increase our current physical stats
         // then let's recalculate our dancing stats again to process and update the new values.
