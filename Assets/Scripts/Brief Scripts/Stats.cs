@@ -347,8 +347,9 @@ public class Stats : MonoBehaviour
             Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your at Max Level, : " + level + " , Congratulations! Go find another hobby");
             xpThreshold *= 9000;
         }
+        DistributePhysicalStatsOnLevelUp(xpToDistribute);
 
-        
+
         ShowLevelUpEffects(); // displays some fancy particle effects.
        
 
