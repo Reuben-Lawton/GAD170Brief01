@@ -40471,7 +40471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd230a2eebc10bf4d9777419f45df8ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 1
+  level: 0
   currentXp: 0
   xpThreshold: 10
   xpToDistribute: 0
@@ -43621,7 +43621,7 @@ PrefabInstance:
     - target: {fileID: 8798416683957812022, guid: e07be5041d69d0e45bd5798b3d952919,
         type: 3}
       propertyPath: level
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8798416683957812022, guid: e07be5041d69d0e45bd5798b3d952919,
         type: 3}

@@ -24,9 +24,9 @@ public class BattleHandler:MonoBehaviour
     /// <returns></returns>
     public float SimulateBattle(Stats MyStats, Stats Opponent)
     {
-        int myPoints = MyStats.ReturnDancePowerLevel(); // our current powerlevel
-        int opponentPoints = Opponent.ReturnDancePowerLevel(); // our opponents current power level
-        float newNormalisedValue = 0.0f;
+        float myPoints = MyStats.ReturnDancePowerLevel(); // our current powerlevel
+        float opponentPoints = Opponent.ReturnDancePowerLevel(); // our opponents current power level
+        float newNormalisedValue = 0.00f;
 
         if (myPoints <= 0 || opponentPoints <= 0)
         {
@@ -38,13 +38,13 @@ public class BattleHandler:MonoBehaviour
         }
         else if (myPoints < opponentPoints)
         {
-            newNormalisedValue = (float)(myPoints / opponentPoints);
-            Debug.Log("Opponent has higher points than player. Opponents points currently at : " + opponentPoints + ". Player only has : " + myPoints + " and a normalised value of : " + newNormalisedValue);
+            newNormalisedValue = (myPoints / opponentPoints);
+            Debug.Log("Opponent has higher points than player. Opponents points currently at : " + opponentPoints + ". Player only has : " + myPoints + " and a normalised value of : " + (float)newNormalisedValue);
         }
         else if (myPoints > opponentPoints)
         {
-            newNormalisedValue = (float)(opponentPoints/myPoints);
-            Debug.Log("Player has higher points than opponent. Player points currently at : " + myPoints + ". Opponent only has: " + opponentPoints + " and a normalised value of : " + newNormalisedValue);
+            newNormalisedValue = (opponentPoints / myPoints);
+            Debug.Log("Player has higher points than opponent. Player points currently at : " + myPoints + ". Opponent only has: " + opponentPoints + " and a normalised value of : " + (float)newNormalisedValue);
         }
 
         // we probably want to compare our powerlevels...hope they aren't over 9000.

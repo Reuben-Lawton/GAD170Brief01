@@ -24,7 +24,7 @@ public class Stats : MonoBehaviour
     /// <summary>
     /// Our current level.
     /// </summary>
-    public int level;
+    public int level = 0;
 
     /// <summary>
     /// The current amount of xp we have accumulated.
@@ -115,7 +115,7 @@ public class Stats : MonoBehaviour
         }
 
         {
-            Debug.LogWarning("Player stats have been generated. " + "Agility: " + agility + "Intelligience: " + intelligence + "Strength: " + strength);
+            Debug.LogWarning("Player stats have been generated. " + " Agility: " + agility + " Intelligience: " + intelligence + " Strength: " + strength);
         }
 
 
@@ -182,7 +182,7 @@ public class Stats : MonoBehaviour
     int maxLuck = 10;
     int maxRhythm = 20;
 
-    public void SetPercentageValue(float normalisedValue)
+    public void SetPercentageValue(float normalisedValue = 0.0f)
     {
         float maxLevel = (maxStyle + maxLuck + maxRhythm);
         float playerLevel = (style + luck + rhythm);
@@ -227,7 +227,7 @@ public class Stats : MonoBehaviour
 
         int returnRandomDancingPower = (int)((danceRandomPower / maxRandomPower) * 100);
 
-        string myDebugMessage = "Generating a random power level of : " + danceRandomPower + "comparing to Max Power: " + maxRandomPower + ". Generates a power level of: " + (returnRandomDancingPower);
+        string myDebugMessage = "Generating a random power level of : " + danceRandomPower + ". Compare to Max Power: " + maxRandomPower + ". Generates a power level of: " + (returnRandomDancingPower);
 
         Debug.Log(myDebugMessage);
 
@@ -263,10 +263,11 @@ public class Stats : MonoBehaviour
         xpToDistribute = xpGained;
         //We probably want to display the xp we just gained, by default it is 0
         uIManager.ShowPlayerXPUI(xpGained);
+       
 
         // We probably also want to check to see if the player can level up and if so do something....what should we be checking?
     }
-
+    
 
     /// <summary>
     /// A function used to handle actions associated with levelling up.
@@ -342,12 +343,13 @@ public class Stats : MonoBehaviour
         }
 
         ShowLevelUpEffects(); // displays some fancy particle effects.
-        
+
 
         //Debug.LogWarning("Level up has been called");
         // we probs want to increase our level....
         // As well as probably want to increase our threshold for when we should level up...based on our current new level
         // Last thing we probably want to do is increase our physical stats...if only we had a function to do that for us.       
+        UpdateStatsUI(); // update our current UI for our character
 
     }
 
@@ -361,25 +363,40 @@ public class Stats : MonoBehaviour
         {
             Debug.Log("Points Pool : " + PointsPool + " so that is the same as XptoDistribute:" + xpToDistribute);
         }
-        if(PointsPool == 0)
+        if (PointsPool == 0)
         {
             Debug.Log("Points Pool has got no points... hmm what now ?");
         }
-        else if(PointsPool >= 1)
+        else if (PointsPool >= 1)
         {
-            style += (Random.Range(1, PointsPool));
-            PointsPool -= style;
-            luck += (Random.Range(1, PointsPool));
-            PointsPool -= luck;
-            rhythm += (Random.Range(1, PointsPool));
+            agility += (Random.Range(0, PointsPool));
+            PointsPool -= agility;
+            intelligence += (Random.Range(0, PointsPool));
+            PointsPool -= intelligence;
+            strength += (Random.Range(0, PointsPool));
             PointsPool = 0;
-            Debug.Log("Xp gained from battle has been distributed to player stats");
+            {
+                Debug.Log("Xp gained from battle has been distributed to player physical stats");
+            }
         }
 
-        Debug.LogWarning("DistributePhysicalStatsOnLevelUp has been called " + PointsPool);
+        
+            style = (int)((float)(agility) * (float)agilityMultiplier);
+            luck = ((strength) * strengthMultiplier);
+            rhythm = ((intelligence) * intelligenceMultiplier);
+            {
+                Debug.Log("Dance stats have been updated set, Style: " + style + " Luck: " + luck + " Rhythm: " + rhythm);
+            }
+
+            Debug.LogWarning("DistributePhysicalStatsOnLevelUp has been called " + PointsPool);
+
         // let's share these points somewhat evenly or based on some forumal to increase our current physical stats
         // then let's recalculate our dancing stats again to process and update the new values.
+        UpdateStatsUI(); // update our current UI for our character
+
+
     }
+
 
     #region No Mods Required
     /// <summary>
