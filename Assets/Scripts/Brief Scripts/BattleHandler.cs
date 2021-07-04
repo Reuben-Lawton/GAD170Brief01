@@ -5,10 +5,6 @@ using UnityEngine;
 /// <summary>
 /// This handles all the battle logic of who is determined to be the winner of a fight between
 /// two characters.
-/// 
-/// TODO:
-///     - SimulateBattle needs to calculate a normalised (decimal) value to display the % chance of winning a fight.
-///     - Battle needs to handle the logic for who wins a fight and telling the winner they get some XP for their trouble.
 /// </summary>
 public class BattleHandler:MonoBehaviour
 {

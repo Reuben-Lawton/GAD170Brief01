@@ -189,7 +189,7 @@ public class Stats : MonoBehaviour
         float maxLevel = (float)(maxStyle + maxLuck + maxRhythm);
         float playerLevel = (float)(style + luck + rhythm);
         // float opponentLevel = (opponentStyle + opponentLuck + opponentRhythm);
-
+        
         normalisedValue = (playerLevel / maxLevel);
         {
             Debug.Log("Player normalised value between 0.0 and 1.0 is :" + normalisedValue);
