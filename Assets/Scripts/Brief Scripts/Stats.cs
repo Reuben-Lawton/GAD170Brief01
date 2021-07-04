@@ -7,13 +7,13 @@ using UnityEngine.UI;
 /// This class handles all the data related to a characters stats.
 /// 
 /// TODO:
-///  Generate some Physical stats for our character.
-///  Calculate our Dancing stats based on our physical stats.
-///  SetPercentageValue based on the decimal value coming in turn this into a %.
-///  ReturnDancePowerLevel return a power level based on our dancing stats.
-///  AddXP based on the xp coming in, add some xp.
-///  LevelUp increase our level as well as increase our threshold for levelling up, finally increase our physical stats.
-///  DistributePhysicalStatsOnLevelUp increase each of our physical stats by a value, and recalculate our dancing stats.
+///  Generate some Physical stats for our character.    DONE
+///  Calculate our Dancing stats based on our physical stats.    DONE
+///  SetPercentageValue based on the decimal value coming in turn this into a %.    DONE
+///  ReturnDancePowerLevel return a power level based on our dancing stats.    DONE
+///  AddXP based on the xp coming in, add some xp.    DONE
+///  LevelUp increase our level as well as increase our threshold for levelling up, finally increase our physical stats.    DONE
+///  DistributePhysicalStatsOnLevelUp increase each of our physical stats by a value, and recalculate our dancing stats.    DONE
 /// 
 /// </summary>
 /// 
@@ -21,6 +21,7 @@ using UnityEngine.UI;
 
 public class Stats : MonoBehaviour
 {
+    #region the variables
     /// <summary>
     /// Our current level.
     /// </summary>
@@ -67,6 +68,7 @@ public class Stats : MonoBehaviour
     /// </summary>
     public int perecentageChanceToWin = 0;
 
+    #endregion
     #region character references, no mods required
     [HideInInspector]
     public AnimationController animController; // reference to our animation controller on our character
@@ -86,22 +88,23 @@ public class Stats : MonoBehaviour
         SetUpReferences();//sets up the references to other scripts we need for functionality.
         GeneratePhysicalStatsStats(); // we want to generate some physical stats.
         CalculateDancingStats();// using those physical stats we want to generate some dancing stats.      
-        SetPercentageValue();
-        ReturnDancePowerLevel();
+        SetPercentageValue(); // sets the percentage chance to win at the start of the game based on stats.
+        ReturnDancePowerLevel(); // generates a power level to use in battle
     }
 
+    #region physical and dance stats 
     /// <summary>
     /// This function should set our starting stats of Agility, Strength and Intelligence
     /// to some default RANDOM values.
     /// </summary>
+
+
     public void GeneratePhysicalStatsStats()
     {
-        int Min = 1;
-        int agilityMin = 2;
-        int Max = 10;
-        // int statpool = 25;
-        Debug.LogWarning("Generate Physical Stats has been called");
-
+        int Min = 1; // int minimum
+        int agilityMin = 2; // agility minimum set at 2 so that when we use the agility multiplier we dont get a value of 0.5
+        int Max = 10; // 
+        // int statpool = 25; decided to not implement statpool
 
         agility = Random.Range(agilityMin, Max);
         // statpool -= agility;
@@ -114,12 +117,7 @@ public class Stats : MonoBehaviour
 
         {
             Debug.Log("Physical stats have been randomly generated. " + " Agility: " + agility + " Intelligience: " + intelligence + " Strength: " + strength);
-        }
-
-        {
-            Debug.LogWarning("Player stats have been generated. " + " Agility: " + agility + " Intelligience: " + intelligence + " Strength: " + strength);
-        }
-
+        }       
 
         UpdateStatsUI(); // update our current UI for our character
     }
@@ -130,47 +128,12 @@ public class Stats : MonoBehaviour
     /// </summary>
     public void CalculateDancingStats()
     {
-        Debug.LogWarning("Generate Calculate Dancing Stats has been called");
-
-        style = (int)((float)(agility) * (float)agilityMultiplier);
-        luck = ((strength) * strengthMultiplier);
-        rhythm = ((intelligence) * intelligenceMultiplier);
+        style = (int)((float)(agility) * (float)agilityMultiplier);  // style set by multiply agility by the muliplier, both as a float then returned as an int
+        luck = ((strength) * strengthMultiplier); // luck set by multiply strength by the multiplier
+        rhythm = ((intelligence) * intelligenceMultiplier); // rhythm set by multiply intelligence by the multiplier
         {
             Debug.Log("Dance stats have been set, Style: " + style + " Luck: " + luck + " Rhythm: " + rhythm);
         }
-        /* float currentAgility = agility;
-         float currentStrength = strength;
-         float currentIntelligience = intelligence;
-         float currentStyle = style;
-         float currentLuck = luck;
-         float currentRhythm = rhythm;
-        */
-        // style = agility * agilityMultiplier;
-        //luck = strength * strengthMultiplier;
-        // rhythm = intelligience * intelligenceMultiplier;
-
-    
-/*
-        {
-            Debug.Log("Style has been set using: " + " agility of " + currentAgility + "multiplied by " + agilityMultiplier + " . Giving a Style value of " + (currentAgility * agilityMultiplier));
-        }
-
-        {
-            Debug.Log("Luck has been set using: " + " strength of " + currentStrength + "multiplied by " + strengthMultiplier + " . Giving a Luck value of " + (currentStrength * strengthMultiplier));
-        }
-
-        {
-            Debug.Log("Rhythm has been set using: " + " intelligience of " + currentIntelligience + "multiplied by " + intelligenceMultiplier + " . Giving a Rhythm value of " + (agility * agilityMultiplier));
-        }*/
-
-
-
-        // what we want I want is for you to take our physical stats and translate them into our dancing stats,
-        // based on the multiplier of that stat as follows:
-        // our Style should be based on our Agility.
-        // our Rhythm should be based on our Strength.
-        // our Luck should be based on our intelligence.
-        // hint...your going to need to convert our ints into floats, then back to ints.
 
         UpdateStatsUI(); // update our current UI for our character
     }
@@ -180,22 +143,24 @@ public class Stats : MonoBehaviour
     /// </summary>
     /// <param name="normalisedValue"></param>
     /// 
-    int maxStyle = 5;
-    int maxLuck = 10;
-    int maxRhythm = 20;
+    int maxStyle = 5; // max style that can be generated
+    int maxLuck = 10; // max luck that can be generated 
+    int maxRhythm = 20; // max rhythm that can be generated
+    #endregion
 
+    #region chance to win percentage and random power level for battle
     public void SetPercentageValue(float normalisedValue = 0.0f)
     {
-        float maxLevel = (float)(maxStyle + maxLuck + maxRhythm);
-        float playerLevel = (float)(style + luck + rhythm);
+        float maxLevel = (float)(maxStyle + maxLuck + maxRhythm); // used to calculate a max level to compare to player level
+        float playerLevel = (float)(style + luck + rhythm); // players current level that we'll use 
         // float opponentLevel = (opponentStyle + opponentLuck + opponentRhythm);
         
-        normalisedValue = (playerLevel / maxLevel);
+        normalisedValue = (playerLevel / maxLevel); // should give us a normalised value, if it doesn't then I need to rethink this
         {
             Debug.Log("Player normalised value between 0.0 and 1.0 is :" + normalisedValue);
         }
 
-        perecentageChanceToWin = (int)(normalisedValue * 100);
+        perecentageChanceToWin = (int)(normalisedValue * 100); // multiply the normalised value by 100 to give us a percent chance to win
         {
             Debug.Log("Max Level: " + maxLevel + "Player is currently at: " + playerLevel + ". Their percent chance to win is:  " + " % " + perecentageChanceToWin);
         }              
@@ -214,8 +179,9 @@ public class Stats : MonoBehaviour
         // to ensure that there is not always a draw, by default it just returns 0. 
         // If you right click this function and find all references you can see where it is called.
         // Let's also throw in a little randomness in here, so it's not a garunteed win
+
         int currentRandomStyle = (style * (Random.Range(1, 3))), currentRandomLuck = (luck * (Random.Range(1, 3))), currentRandomRhythm = (rhythm * (Random.Range(1, 2)));
-        int MaxStyleMultiplier = 3, MaxLuckMultiplier = 3, MaxRhythmMultiplier = 2;
+        int MaxStyleMultiplier = 3, MaxLuckMultiplier = 3, MaxRhythmMultiplier = 2; // 
 
         int maxRandomStyle = (maxStyle * MaxStyleMultiplier), maxRandomLuck = (maxLuck * MaxLuckMultiplier), maxRandomRhythm = (maxRhythm * MaxRhythmMultiplier);
         float maxRandomPower = (maxRandomStyle + maxRandomLuck + maxRandomRhythm);
@@ -240,32 +206,27 @@ public class Stats : MonoBehaviour
     /// </summary>
 
     // public BattleHandler Battle;
+    #endregion
 
+    #region after battle add Xp, level up and distribute stats
     public void AddXP(int xpGained)
-        
+
     {
-        if(xpGained == 0)
+        int minXp = 1;
+        int maxXp = 85;
+        if (xpGained == 0) // if no XP gained go to next if statement
         {
             Debug.Log("No XP achieved, try harder!");
         }
-        else if (xpGained >= 1 && xpGained <= 85)
-        {
-            
+        else if (xpGained >= minXp && xpGained <= maxXp) // if Xp is gained between minimum of 1 and maximum of 85 then add xp to current xp, then check to see if we can level up
+        {            
             currentXp += (xpGained);
-            Debug.Log("XP gained is : " + xpGained + " so your current XP is  : " + currentXp);
             LevelUp();
+            Debug.Log("XP gained is : " + xpGained + " so your current XP is  : " + currentXp);           
         }
 
-        //Debug.LogWarning("This character needs some xp to be given, the xpGained from the fight was: " + xpGained);
-
-        // we probably want to do something with the xpGained.
-
-        xpToDistribute = xpGained;
-        //We probably want to display the xp we just gained, by default it is 0
+        xpToDistribute = xpGained; // using xp to distribute taken from the xp gained in battle
         uIManager.ShowPlayerXPUI(xpGained);
-       
-
-        // We probably also want to check to see if the player can level up and if so do something....what should we be checking?
     }
     
 
@@ -309,45 +270,39 @@ public class Stats : MonoBehaviour
             Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your at Max Level, : " + level + " , Congratulations! Go find another hobby");
             xpThreshold *= 9000;
         }
-        DistributePhysicalStatsOnLevelUp(xpToDistribute);        
+        DistributePhysicalStatsOnLevelUp(xpToDistribute); // after levelling up we distribute the xp points to our physical stats
 
-
-        //Debug.LogWarning("Level up has been called");
-        // we probs want to increase our level....
-        // As well as probably want to increase our threshold for when we should level up...based on our current new level
-        // Last thing we probably want to do is increase our physical stats...if only we had a function to do that for us.       
         UpdateStatsUI(); // update our current UI for our character
-
     }
 
     /// <summary>
     /// A function used to assign a random amount of points ot each of our skills.
     /// </summary>
-    public void DistributePhysicalStatsOnLevelUp(int PointsPool)
+    public void DistributePhysicalStatsOnLevelUp(int PointsPool) 
 
     {
-        PointsPool = xpToDistribute;
-        {
-            Debug.Log("Points Pool : " + PointsPool + " so that is the same as XptoDistribute:" + xpToDistribute);
-        }
+        PointsPool = xpToDistribute; // points pool taken from the xp to distribute that was the xp gained in battle
+
         if (PointsPool == 0)
         {
-            Debug.Log("Points Pool has got no points... hmm what now ?");
+            Debug.Log("Points Pool has got no points... hmm what now ?"); // a message that should never display
         }
-        else if (PointsPool >= 1)
+        else if (PointsPool >= 1) // Points pool should be 5, 10 , 15 or 20
         {
-            agility += (Random.Range(0, PointsPool));
-            PointsPool -= agility;
-            intelligence += (Random.Range(0, PointsPool));
-            PointsPool -= intelligence;
-            strength += (Random.Range(0, PointsPool));
-            PointsPool = 0;
+            agility += (Random.Range(1, PointsPool)); // agility gets agility plus a random range from 1 to the max amount in pointspool
+            PointsPool -= agility; // points pool decreases, after using some points for agility
+            intelligence += (Random.Range(1, PointsPool)); // points pool gives intelligence a random amount from 1 to whatever is left in pointspool
+            PointsPool -= intelligence; // points pool decreases after giving points to intelligence
+            strength += (Random.Range(1, PointsPool)); // strength gets some points from the points pool
+            // there is the chance that points only go to agility or agility & intelligence but not strenght, I could implement further conditions to prevent this if I had thought of it sooner
+            PointsPool = 0; // points pool returns to 0
             {
                 Debug.Log("Xp gained from battle has been distributed to player physical stats");
             }
-            if (PointsPool == 0)
+            if (PointsPool == 0) // when points pool is at 0 then calculate dance stats, 
             {
-                CalculateDancingStats();
+                CalculateDancingStats(); // calculates dancing stats again
+                ReturnDancePowerLevel(); // generates a power level to use in battle
                 UpdateStatsUI(); // update our current UI for our character
 
                 {
@@ -356,12 +311,9 @@ public class Stats : MonoBehaviour
             }
         }
         
-        // let's share these points somewhat evenly or based on some forumal to increase our current physical stats
-        // then let's recalculate our dancing stats again to process and update the new values.
-
         UpdateStatsUI(); // update our current UI for our character
     }
-
+    #endregion
 
     #region No Mods Required
     /// <summary>

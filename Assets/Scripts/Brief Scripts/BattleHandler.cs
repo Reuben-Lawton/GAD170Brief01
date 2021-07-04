@@ -7,18 +7,21 @@ using UnityEngine;
 /// two characters.
 /// </summary>
 public class BattleHandler:MonoBehaviour
+    #region variables 
 {
     public float MyStats = 0.0f;
     public float Opponent = 0.0f;
     public SFXHandler sfxHandler; // reference to our sfx Handler to play sound effects.
 
+    #endregion
+    #region SimulateBattle
     /// <summary>
     /// Returns a float of the percentage chance to win the fight based on your characters current stats.
     /// </summary>
     /// <param name="MyStats"></param>
     /// <param name="Opponent"></param>
     /// <returns></returns>
-    #region SimulateBattle
+
     public float SimulateBattle(Stats MyStats, Stats Opponent)
     {
         float myPoints = MyStats.ReturnDancePowerLevel(); // our current powerlevel
@@ -48,6 +51,7 @@ public class BattleHandler:MonoBehaviour
     }
 
     #endregion
+    #region battle and xp generated from battle;   
     /// <summary>
     /// Is called when the player presses space bar.
     /// This function should take a player and npc 
@@ -59,12 +63,8 @@ public class BattleHandler:MonoBehaviour
     {     
         int playerPowerLevel = player.ReturnDancePowerLevel(); // player powerlevel
         int npcPowerLevel = npc.ReturnDancePowerLevel(); // npc powerlevel
-
-        /**if (playerPowerLevel <= 0 || npcPowerLevel <= 0)
-        {
-            Debug.LogWarning("Player or NPC battle points is 0, most likely the logic has not be setup for this yet");
-        }*/
-        #region xp generated from battle;   
+              
+ 
         if (playerPowerLevel == npcPowerLevel)
     {               
             SetWinningEffects(player, npc, 0); // setting the winning effects to a draw.
@@ -137,10 +137,10 @@ public class BattleHandler:MonoBehaviour
             }
     }
 
-        #endregion
+        
 
     }
-
+    #endregion
     #region No Modifications Required Section
     /// <summary>
     /// Is called at the begining of a fight, and sets the two characters to their dancing states.
