@@ -199,13 +199,8 @@ public class Stats : MonoBehaviour
         {
             Debug.Log("Max Level: " + maxLevel + "Player is currently at: " + playerLevel + ". Their percent chance to win is:  " + " % " + perecentageChanceToWin);
         }              
-
-      
-        // Essentially we want to set our percentage to win, to be a percentage using our normalised value (decimal value of a fraction)
-        // How can we convert out normalised value into a whole number?
-
-        Debug.LogWarning("SetPercentageValue has been called we probably want to convert our normalised value to a percentage");
-        UpdateStatsUI(); // update our current UI for our character
+              
+           UpdateStatsUI(); // update our current UI for our character
 
     }
 
@@ -256,7 +251,7 @@ public class Stats : MonoBehaviour
         else if (xpGained >= 1 && xpGained <= 85)
         {
             
-            currentXp += + (xpGained);
+            currentXp += (xpGained);
             Debug.Log("XP gained is : " + xpGained + " so your current XP is  : " + currentXp);
             LevelUp();
         }
@@ -280,78 +275,41 @@ public class Stats : MonoBehaviour
     
     public void LevelUp()
     {
-        int CurrentLevel = level;
-        if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
+        int ThresholdIncrement = 12; // amount the Threshold increases after each levelling up
+        
+        if (currentXp < xpThreshold) // if Current Xp is less then Threshold do nothing and check the next if statement
+        {
+            Debug.Log("Current Xp is not enough to level up, current XP is : " + currentXp + " , Xp increases at the next threshold: " + xpThreshold);
+        }
+        else if (currentXp >= xpThreshold && currentXp <= (xpThreshold) + ThresholdIncrement) // if current Xp is greater then Threshold and less then Threshold plus Increment then increase level by 1
         {
             level = (level + 1);
             Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
-            xpThreshold += (xpThreshold + 10) + 2;
+            xpThreshold = (xpThreshold + ThresholdIncrement);
+            ShowLevelUpEffects(); // displays some fancy particle effects.
         }
-        else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
+        else if (currentXp > ((xpThreshold) + ThresholdIncrement) && currentXp <= ((xpThreshold + ThresholdIncrement) + ThresholdIncrement)) // if current xp is greater then xp threshold + 1 increment and less or then threshold + 2 increments then level up by 2
         {
-            level = (level + 1);
+            level = (level + 2); // level up 2 times
             Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
-            xpThreshold = (xpThreshold + 10) + 2;
+            xpThreshold = (xpThreshold + ThresholdIncrement + ThresholdIncrement);
+            ShowLevelUpEffects(); // displays some fancy particle effects.
         }
-        /* else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
-         {
-             level = (level + 1);
-             Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
-             xpThreshold = (xpThreshold + 10) + 2;
-         }
-         else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
-         {
-             level = (level + 1);
-             Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
-             xpThreshold = (xpThreshold + 10) + 2;
-         }
-         else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
-         {
-             level = (level + 1);
-             Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
-             xpThreshold = (xpThreshold + 10) + 2;
-         }
-         else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
-         {
-             level = (level + 1);
-             Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
-             xpThreshold = (xpThreshold + 10) + 2;
-         }
-         else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
-         {
-             level = (level + 1);
-             Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
-             xpThreshold = (xpThreshold + 10) + 2;
-         }
-         else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
-         {
-             level = (level + 1);
-             Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
-             xpThreshold = (xpThreshold + 10) + 2;
-         }
-         else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
-         {
-             level = (level + 1);
-             Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
-             xpThreshold = (xpThreshold + 10) + 2;
-         }
-         else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
-         {
-             level = (level + 1);
-             Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
-             xpThreshold = (xpThreshold + 10) + 2;
-         }*/
-        else if (currentXp >= xpThreshold && currentXp <= (xpThreshold + 10) + 2)
+        else if (currentXp > ((xpThreshold + ThresholdIncrement) + ThresholdIncrement) && currentXp <= (((xpThreshold + ThresholdIncrement) + ThresholdIncrement) + ThresholdIncrement)) // if current xp is more then threshold + 2 increments and less then threshold + 3 increment then level up by 3
         {
-            level = (level + 1);
+            level = (level + 3); // level up 3 times
+            Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your current Level is : " + level + " , Congratulations!");
+            xpThreshold = (xpThreshold + ThresholdIncrement + ThresholdIncrement + ThresholdIncrement);
+            ShowLevelUpEffects(); // displays some fancy particle effects.
+        }
+                
+        else if (currentXp >= xpThreshold + (ThresholdIncrement * 20)) // if player has leveled up 20 times then  ???
+        {
+            level = (9000); // set beyond reasonable doubt
             Debug.Log("Current Xp is :" + currentXp + " You have Leveled up !, your at Max Level, : " + level + " , Congratulations! Go find another hobby");
             xpThreshold *= 9000;
         }
-        DistributePhysicalStatsOnLevelUp(xpToDistribute);
-
-
-        ShowLevelUpEffects(); // displays some fancy particle effects.
-       
+        DistributePhysicalStatsOnLevelUp(xpToDistribute);        
 
 
         //Debug.LogWarning("Level up has been called");
