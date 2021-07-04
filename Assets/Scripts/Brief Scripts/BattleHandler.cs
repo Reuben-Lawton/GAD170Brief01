@@ -46,7 +46,7 @@ public class BattleHandler:MonoBehaviour
             newNormalisedValue = (opponentPoints / myPoints);
             Debug.Log("Player has higher points than opponent. Player points currently at : " + myPoints + ". Opponent only has: " + opponentPoints + " and a normalised value of : " + (float)newNormalisedValue);
         }
-
+       
         // we probably want to compare our powerlevels...hope they aren't over 9000.
         // we need to return a normalised (decimal) value....how much do you remember about percentages?
         // don't forget that we are returning a float...but diving 2 ints...what happens?
