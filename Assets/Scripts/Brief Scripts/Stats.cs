@@ -60,8 +60,8 @@ public class Stats : MonoBehaviour
     /// Used to determine the conversion of 1 physical stat, to 1 dancing stat.
     /// </summary>
     public float agilityMultiplier = 0.5f;
-    public int strengthMultiplier = 1;
     public int intelligenceMultiplier = 2;
+    public int strengthMultiplier = 1;
 
     /// <summary>
     /// A float used to display what the chance of winning the current fight is.
@@ -103,7 +103,7 @@ public class Stats : MonoBehaviour
     {
         int Min = 1; // int minimum
         int agilityMin = 2; // agility minimum set at 2 so that when we use the agility multiplier we dont get a value of 0.5
-        int Max = 10; // 
+        int Max = 10; // int max
         // int statpool = 25; decided to not implement statpool
 
         agility = Random.Range(agilityMin, Max);
